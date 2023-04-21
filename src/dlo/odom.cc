@@ -771,13 +771,13 @@ void dlo::OdomNode::imuCB(const sensor_msgs::Imu::ConstPtr& imu) {
     // Apply the calibrated bias to the new IMU measurements
     this->imu_meas.stamp = imu->header.stamp.toSec();
 
-    this->imu_meas.ang_vel.x = ang_vel[0] - this->imu_bias.gyro.x;
+    this->imu_meas.ang_vel.x = -ang_vel[0] - this->imu_bias.gyro.x;
     this->imu_meas.ang_vel.y = ang_vel[1] - this->imu_bias.gyro.y;
-    this->imu_meas.ang_vel.z = ang_vel[2] - this->imu_bias.gyro.z;
+    this->imu_meas.ang_vel.z = -ang_vel[2] - this->imu_bias.gyro.z;
 
-    this->imu_meas.lin_accel.x = lin_accel[0];
+    this->imu_meas.lin_accel.x = -lin_accel[0];
     this->imu_meas.lin_accel.y = lin_accel[1];
-    this->imu_meas.lin_accel.z = lin_accel[2];
+    this->imu_meas.lin_accel.z = -lin_accel[2];
 
     // Store into circular buffer
     this->mtx_imu.lock();
